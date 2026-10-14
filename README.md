@@ -33,16 +33,22 @@ one OpenAI API key. Local SQLite rate limiting requires no Redis service.
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    User[ADK web UI or CLI] --> Finance[Finance assistant / gpt-4o-mini]
-    Finance --> Profile[Demo finance profile tool]
-    Finance --> Investment[Investment planning agent / gpt-4o-mini]
-    Investment --> Search[Public web search / DDGS]
-    Search --> Sources[Source links and retrieval timestamp]
-    Finance -. before every model call .-> Limiter[Shared SQLite admission]
-    Investment -. before every model call .-> Limiter
-    Limiter --> OpenAI[OpenAI API]
+```text
+ADK web UI / CLI
+       |
+       v
+Finance assistant (gpt-4o-mini)
+       |
+       +--> Demo finance profile tool
+       |
+       +--> Investment planning agent (gpt-4o-mini)
+                    |
+                    +--> Public web search (DDGS)
+                              |
+                              +--> Source links + retrieval timestamp
+
+Every model call from either agent:
+    Shared SQLite admission --> OpenAI API
 ```
 
 Both agents use ADK's `LiteLlm(model="openai/gpt-4o-mini")` connector. The model
