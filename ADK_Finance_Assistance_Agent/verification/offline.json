@@ -1,0 +1,17 @@
+{
+  "verified_at": "2026-10-14T12:08:36.691170+00:00",
+  "configuration": {
+    "model": "gpt-4o-mini",
+    "api_key_present": true,
+    "rate_limit_backend": "local_sqlite",
+    "max_model_calls": 20,
+    "window_seconds": 60
+  },
+  "offline": {
+    "agent_imports": "pass",
+    "both_models_configured": true,
+    "demo_budget_consistent": true,
+    "rate_limit_admission": "pass"
+  },
+  "status": "pass"
+}
