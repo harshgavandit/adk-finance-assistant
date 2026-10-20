@@ -1,0 +1,78 @@
+{
+  "url": "https://adk-finance-assistant.vercel.app",
+  "verified_at": "2026-10-20T11:45:18.398884+00:00",
+  "checks": {
+    "/": {
+      "status_code": 200,
+      "elapsed_seconds": 0.57
+    },
+    "/styles.css": {
+      "status_code": 200,
+      "elapsed_seconds": 0.52
+    },
+    "/app.js": {
+      "status_code": 200,
+      "elapsed_seconds": 0.48
+    },
+    "/api/health": {
+      "status_code": 200,
+      "elapsed_seconds": 0.74,
+      "body": {
+        "status": "ok",
+        "app": "adk-finance-assistant",
+        "access_required": true,
+        "model": "gpt-4o-mini",
+        "rate_limit_scope": "per-instance",
+        "persistent_server_history": false
+      }
+    },
+    "unauthorized_chat": {
+      "status_code": 401,
+      "elapsed_seconds": 0.25,
+      "body": {
+        "detail": "Enter the private chat access code."
+      }
+    },
+    "general_chat": {
+      "status_code": 200,
+      "elapsed_seconds": 8.9,
+      "body": {
+        "answer": "A recurring deposit is a savings scheme offered by banks that allows individuals to deposit a fixed amount of money at regular intervals, typically monthly, for a predetermined period. At the end of the term, the depositor receives the total amount along with interest, making it a disciplined way to save for future financial goals.",
+        "tools_called": [],
+        "model": "gpt-4o-mini"
+      }
+    },
+    "demo_budget": {
+      "status_code": 200,
+      "elapsed_seconds": 2.8,
+      "body": {
+        "answer": "Here's a summary based on the **demo sample data**:\n\n- **Monthly Salary:** \u20b950,000\n- **Total Monthly Expenses:** \n  - EMI Expense: \u20b925,000\n  - Essentials: \u20b95,000\n  - Entertainment: \u20b95,000\n  - Shopping and Travel: \u20b95,000\n  - **Total Expenses:** \u20b940,000\n- **Monthly Savings:** \u20b910,000\n\nIf you have any specific financial goals or questions, feel free to ask!",
+        "tools_called": [
+          "get_user_personal_finance_details"
+        ],
+        "model": "gpt-4o-mini"
+      }
+    },
+    "conversation_history": {
+      "status_code": 200,
+      "elapsed_seconds": 1.25,
+      "body": {
+        "answer": "You mentioned a monthly savings target of 17,000 rupees.",
+        "tools_called": [],
+        "model": "gpt-4o-mini"
+      }
+    },
+    "investment_search": {
+      "status_code": 200,
+      "elapsed_seconds": 9.31,
+      "body": {
+        "answer": "I found these public sources. Exact current rates, prices, and active schemes must be verified on the underlying pages; search snippets do not establish those values.\n\n- [sbi.bank.in](https://sbi.bank.in/web/interest-rates/interest-rates/deposit-rates)\n- [www.paisabazaar.com](https://www.paisabazaar.com/fixed-deposit/sbi-fd-rates/)\n- [sbi.bank.in](https://sbi.bank.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits)\n- [economictimes.indiatimes.com](https://economictimes.indiatimes.com/wealth/interestrate.cms)\n- [www.bankbazaar.com](https://www.bankbazaar.com/fixed-deposit/sbi-fixed-deposit-rate.html)\n\nSearch retrieved at 2026-10-20T11:45:38.279256+00:00 (UTC). This is a retrieval timestamp, not a publication or effective date.",
+        "tools_called": [
+          "search_current_finance_information"
+        ],
+        "model": "gpt-4o-mini"
+      }
+    }
+  },
+  "status": "pass"
+}

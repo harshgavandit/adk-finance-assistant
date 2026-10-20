@@ -16,6 +16,8 @@ and development UI remain available for local use.
 
 ## Hosted web app
 
+**Live demo: [adk-finance-assistant.vercel.app](https://adk-finance-assistant.vercel.app)**
+
 The public landing page explains the sample budget. Chat requires a private
 access code; the OpenAI API key is used only by the server and is never sent to
 the browser. The access code and conversation remain in the current tab's

@@ -58,6 +58,8 @@ async def run_chat(message: str, history: list[dict]) -> dict:
                 run_config=RunConfig(max_llm_calls=8)):
             delta = event.actions.state_delta or {}
             tools.update(delta.get("finance_tools_called", []))
+            if event.content:
+                tools.update(part.function_call.name for part in event.content.parts if part.function_call)
             if delta.get("finance_model_error"):
                 errors.append(delta["finance_model_error"])
             if event.is_final_response() and event.content:

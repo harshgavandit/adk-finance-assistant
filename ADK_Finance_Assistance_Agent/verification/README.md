@@ -24,3 +24,18 @@ They did not fail the checks.
 GitHub Actions runs offline checks with a dummy credential and no billable
 provider requests. These reports capture a local run; they are not a guarantee
 of future provider availability, deployment readiness, or load capacity.
+
+## Vercel deployment - 20 October 2026
+
+The hosted web adapter adds eight tests, bringing the local and CI regression
+suite to 20 passing tests. The production URL is
+https://adk-finance-assistant.vercel.app. Chat requires a private access code.
+
+[deployment.json](deployment.json) records actual production HTTP checks:
+the page, CSS, JavaScript, health endpoint, rejection of unauthenticated chat,
+OpenAI generation, demo-profile tool execution, conversation history replay,
+and delegated public source search. The report contains no access code or API key.
+
+Vercel instances use temporary SQLite counters; these are per-instance limits
+and reset on cold starts. The browser retains conversation history in tab
+memory and resubmits bounded history. There is no durable cloud chat database.
