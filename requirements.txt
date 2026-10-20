@@ -1,2 +1,5 @@
--r ADK_Finance_Assistance_Agent/requirements.txt
+google-adk==2.12.0
+litellm==1.105.1
+python-dotenv==1.2.4
+ddgs==9.16.0
 fastapi==0.141.1
