@@ -17,13 +17,14 @@ function bubble(role, text) {
   speaker.textContent = role === 'user' ? 'You' : 'Finance assistant';
   el.append(speaker);
   // No generated HTML is inserted. Links are constructed from validated http(s) URLs.
-  const pattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+  const pattern = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|\*\*([^*\n]+)\*\*/g;
   let last = 0;
   for (const match of text.matchAll(pattern)) {
     el.append(document.createTextNode(text.slice(last, match.index)));
-    const a = document.createElement('a');
-    a.textContent = match[1]; a.href = match[2]; a.target = '_blank'; a.rel = 'noopener noreferrer';
-    el.append(a); last = match.index + match[0].length;
+    const node = document.createElement(match[3] ? 'strong' : 'a');
+    node.textContent = match[3] || match[1];
+    if (!match[3]) { node.href = match[2]; node.target = '_blank'; node.rel = 'noopener noreferrer'; }
+    el.append(node); last = match.index + match[0].length;
   }
   el.append(document.createTextNode(text.slice(last)));
   messages.append(el); messages.scrollTop = messages.scrollHeight;
