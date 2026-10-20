@@ -10,6 +10,46 @@ investment research.
 The application runs locally through the ADK web UI or command line. It needs
 one OpenAI API key. Local SQLite rate limiting requires no Redis service.
 
+The repository also includes a Vercel-compatible FastAPI web adapter with a
+responsive chat page and private access-code protection. The existing ADK CLI
+and development UI remain available for local use.
+
+## Hosted web app
+
+The public landing page explains the sample budget. Chat requires a private
+access code; the OpenAI API key is used only by the server and is never sent to
+the browser. The access code and conversation remain in the current tab's
+memory. Refreshing or starting a new chat clears the conversation. Each request
+reconstructs a temporary ADK session from the bounded browser history, so
+conversation continuity does not depend on reaching the same Vercel instance.
+
+Vercel uses `main.py`, root `requirements.txt`, `.python-version` and
+`vercel.json`. The `public/` directory serves the frontend. The chat API accepts
+at most 2,000 characters per message and 12 previous messages (18,000 total
+history characters). Requests time out rather than hanging indefinitely.
+
+Private Vercel environment variables:
+
+```dotenv
+OPENAI_API_KEY=your_openai_api_key_here
+LLM_MODEL=gpt-4o-mini
+APP_ACCESS_CODE=your_private_random_access_code
+LITELLM_LOCAL_MODEL_COST_MAP=True
+RATE_LIMIT_MAX_CALLS=20
+RATE_LIMIT_WINDOW_SECONDS=60
+```
+
+The hosted limiter uses writable temporary storage and applies per Vercel
+instance. It resets on cold starts and is **not a global spending cap**.
+Distribute the access code only to intended demo users. The app does not have
+account registration or an authenticated banking integration.
+
+To run the hosted adapter locally, set `APP_ACCESS_CODE` in the process
+environment, activate the repository's virtual environment and run
+`python -m uvicorn main:app --host 127.0.0.1 --port 8001` from the repository
+root. For local deployment credentials, `.env.deployment` is ignored by Git.
+The adapter deliberately does not expose ADK's development/admin endpoints.
+
 ![Finance assistant calling the demo profile tool](ADK_Finance_Assistance_Agent/verification/browser-budget.png)
 
 ## Features

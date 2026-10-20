@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 import os
+import tempfile
 from typing import Mapping
 
 from dotenv import load_dotenv
@@ -49,7 +50,9 @@ class Settings:
             model = model.removeprefix("openai/")
         if not model or "/" in model or any(c.isspace() for c in model):
             raise ConfigurationError("LLM_MODEL must be an OpenAI model name.")
-        db = Path(env.get("RATE_LIMIT_DB", ".runtime/rate_limit.sqlite3"))
+        default_db = (str(Path(tempfile.gettempdir()) / "adk-finance" / "rate_limit.sqlite3")
+                      if env.get("VERCEL") else ".runtime/rate_limit.sqlite3")
+        db = Path(env.get("RATE_LIMIT_DB", default_db))
         if not db.is_absolute():
             db = PROJECT_ROOT / db
         return cls(

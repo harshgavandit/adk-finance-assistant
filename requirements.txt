@@ -1,0 +1,2 @@
+-r ADK_Finance_Assistance_Agent/requirements.txt
+fastapi==0.141.1

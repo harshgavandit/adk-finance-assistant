@@ -25,12 +25,12 @@ def git(*args: str) -> bytes:
 def configured_secrets() -> list[bytes]:
     # Inspect local dotenv files in-memory only, without printing values.
     secrets = []
-    for env_path in (ROOT / ".env", ROOT / "ADK_Finance_Assistance_Agent" / ".env"):
+    for env_path in (ROOT / ".env", ROOT / ".env.deployment", ROOT / "ADK_Finance_Assistance_Agent" / ".env"):
         if not env_path.exists():
             continue
         for line in env_path.read_text(encoding="utf-8-sig").splitlines():
             name, separator, value = line.partition("=")
-            if separator and any(word in name.upper() for word in ("KEY", "TOKEN", "PASSWORD", "SECRET")):
+            if separator and (name.strip() == "APP_ACCESS_CODE" or any(word in name.upper() for word in ("KEY", "TOKEN", "PASSWORD", "SECRET"))):
                 value = value.strip().strip('"').strip("'")
                 if len(value) >= 10:
                     secrets.append(value.encode())
@@ -44,7 +44,7 @@ def main() -> int:
         return 1
     secrets = configured_secrets()
     findings = []
-    forbidden_parts = {".venv", ".tmp", ".runtime", ".adk", "__MACOSX", "__pycache__", ".pytest_cache"}
+    forbidden_parts = {".venv", ".tmp", ".runtime", ".adk", ".vercel", "node_modules", "__MACOSX", "__pycache__", ".pytest_cache"}
     for name in names:
         path = PurePosixPath(name)
         if (path.name == ".env" or (path.name.startswith(".env.") and path.name != ".env.example")

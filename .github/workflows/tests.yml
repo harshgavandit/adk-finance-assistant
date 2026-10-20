@@ -47,6 +47,6 @@ jobs:
       - name: Verify offline configuration
         run: python verify.py
       - name: Compile application source
-        run: python -m compileall -q finance_runtime finance_assistant_agent investment_plan_agent verify.py
+        run: python -m compileall -q finance_runtime finance_assistant_agent investment_plan_agent verify.py ../main.py
       - name: Check tracked files for private data
         run: python ../scripts/check_publishable.py
