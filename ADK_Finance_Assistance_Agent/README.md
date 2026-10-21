@@ -1,7 +1,6 @@
 # Finance Assistant Application
 
-See the [repository README](../README.md) for architecture, setup, configuration,
-usage, limitations, verification, troubleshooting and learning references.
+See the [repository README](../README.md) for what the app does and its live demo.
 
 The runtime `.env` belongs in this directory. Start from `.env.example` and
 supply your own OpenAI API key. Never commit `.env`.
